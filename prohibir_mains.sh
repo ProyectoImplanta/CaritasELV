@@ -2,21 +2,24 @@
 
 branch="$(git rev-parse --abbrev-ref HEAD)"
 
-# 1. Bloqueo de Commits directos
 if [ "$branch" = "main" ] || [ "$branch" = "develop" ]; then
-  # Revisar si es un merge
-  if [ -f .git/MERGE_HEAD ]; then
+  
+  # Detectar si hay un merge en curso o si se está intentando crear un commit de merge
+  if [ -f .git/MERGE_HEAD ] || [ -d .git/rebase-apply ] || [ -d .git/rebase-merge ]; then
     echo "--------------------------------------------------------"
-    echo "❌ BLOQUEO DE MERGE: No puedes mergear nada aquí localmente."
-    echo "Haz el Merge a través de un Pull Request en GitHub web."
+    echo "❌ ERROR: MERGE LOCAL DETECTADO EN $branch"
+    echo "No puedes mezclar ramas localmente en esta rama."
+    echo "Por favor, usa un Pull Request en GitHub."
     echo "--------------------------------------------------------"
-    # Cancelar el merge
-    git merge --abort
+    
+    # Abortamos el proceso de merge inmediatamente
+    git merge --abort >/dev/null 2>&1
     exit 1
   fi
 
+  # Bloqueo de commit normal
   echo "--------------------------------------------------------"
-  echo "❌ BLOQUEO DE COMMIT: No puedes crear commits en $branch."
+  echo "❌ ERROR: COMMITS PROHIBIDOS EN $branch"
   echo "--------------------------------------------------------"
   exit 1
 fi
