@@ -1,23 +1,19 @@
 {
   "name": "caritaselv",
   "version": "1.0.0",
-  "description": "",
+  "description": "Proyecto CaritasELV - Sistema de gestión con arquitectura de Slices",
   "main": "index.js",
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://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@github.com/ProyectoImplanta/CaritasELV.git"
-  },
-  "keywords": [],
+  "keywords": ["next", "react", "typescript", "prisma", "slices"],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/ProyectoImplanta/CaritasELV/issues"
-  },
-  "homepage": "https://github.com/ProyectoImplanta/CaritasELV#readme",
   "dependencies": {
     "@prisma/client": "^5.19.1",
     "@types/node": "^20.19.39",
